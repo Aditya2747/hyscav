@@ -16,20 +16,17 @@ def run_slither(contract_path):
         "slither",
         contract_path,
         "--json",
-        output_file
+        output_file,
+        "--disable-color"
     ]
 
-    result = subprocess.run(
+    # 🔥 KEY CHANGE: suppress Slither verbose output
+    subprocess.run(
         command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False
     )
-
-    # Slither reports findings via STDERR
-    if result.stderr:
-        print("[SLITHER][STDERR]")
-        print(result.stderr)
 
     if not os.path.exists(output_file):
         print("[SLITHER][ERROR] Slither did not produce JSON output")

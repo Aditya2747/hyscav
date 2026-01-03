@@ -1,5 +1,6 @@
 import sys
 
+from reports.report_generator import generate_report
 from analyzers.slither_runner import run_slither
 from controller.feature_extractor import extract_slither_features
 from ml.risk_model import predict_risk
@@ -38,6 +39,17 @@ def analyze_contract(contract_path):
     # -------------------------------
     next_tools = decide_next_stage(risk_level)
     print(f"[DECISION] Next analysis tools to run: {next_tools}")
+
+    # -------------------------------
+    # 5. Report Generation
+    # -------------------------------
+    generate_report(
+        contract_path,
+        features,
+        risk_level,
+        risk_score,
+        next_tools
+    )
 
     print("[PIPELINE] Hybrid analysis completed")
 
