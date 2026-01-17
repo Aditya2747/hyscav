@@ -8,9 +8,10 @@ import uuid
 def run_slither(contract_path):
     print("[SLITHER] Running static analysis...")
 
-    # Generate a unique JSON path WITHOUT creating the file
     temp_dir = tempfile.gettempdir()
-    output_file = os.path.join(temp_dir, f"slither_{uuid.uuid4().hex}.json")
+    output_file = os.path.join(
+        temp_dir, f"slither_{uuid.uuid4().hex}.json"
+    )
 
     command = [
         "slither",
@@ -20,7 +21,6 @@ def run_slither(contract_path):
         "--disable-color"
     ]
 
-    # 🔥 KEY CHANGE: suppress Slither verbose output
     subprocess.run(
         command,
         stdout=subprocess.DEVNULL,
@@ -43,3 +43,28 @@ def run_slither(contract_path):
 
     print("[SLITHER] Analysis completed")
     return data
+
+
+def simplify_slither_issues(slither_data):
+    if not slither_data:
+        return []
+
+    issues = []
+
+    detectors = slither_data.get("results", {}).get("detectors", [])
+
+    for detector in detectors:
+        element = detector.get("elements", [{}])[0]
+        source_map = element.get("source_mapping", {})
+
+        issues.append({
+            "tool": "slither",
+            "title": detector.get("check"),
+            "severity": detector.get("impact"),
+            "contract": element.get("contract"),
+            "function": element.get("name"),
+            "line": source_map.get("lines"),
+            "description": detector.get("description")
+        })
+
+    return issues

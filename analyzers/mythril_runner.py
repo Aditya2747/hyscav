@@ -24,22 +24,33 @@ def run_mythril(contract_path):
 
     if not result.stdout:
         print("[MYTHRIL] No issues detected")
-        return {
-            "issues": [],
-            "count": 0
-        }
+        return {"issues": []}
 
     try:
         data = json.loads(result.stdout)
     except json.JSONDecodeError:
         print("[MYTHRIL][ERROR] Failed to parse output")
-        return None
+        return {"issues": []}
 
     issues = data.get("issues", [])
-
     print(f"[MYTHRIL] Issues found: {len(issues)}")
 
-    return {
-        "issues": issues,
-        "count": len(issues)
-    }
+    return {"issues": issues}
+
+
+def simplify_mythril_issues(mythril_result):
+    simplified = []
+
+    for i in mythril_result.get("issues", []):
+        simplified.append({
+            "tool": "mythril",
+            "title": i.get("title"),
+            "severity": i.get("severity"),
+            "contract": i.get("contract"),
+            "function": i.get("function"),
+            "line": i.get("lineno"),
+            "swc-id": i.get("swc-id"),
+            "description": i.get("description")
+        })
+
+    return simplified

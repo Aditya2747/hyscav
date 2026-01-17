@@ -1,0 +1,38 @@
+# ----------------------------
+# Echidna Configuration
+# ----------------------------
+
+# Use Solidity assertions / echidna_* properties
+testMode: assertion
+
+# Enable coverage reporting
+coverage: true
+
+# Number of calls per transaction sequence
+seqLen: 100
+
+# Total number of fuzzing tests
+testLimit: 5000
+
+# Shrinking attempts after a failure
+shrinkLimit: 500
+
+# Limit execution time (prevents hangs)
+maxTime: 300   # seconds
+
+# Parallel workers (safe default)
+workers: 1
+
+# Deterministic runs (good for reports & ML)
+seed: 1
+
+# Sender addresses used for fuzzing
+sender:
+  - "0x1000000000000000000000000000000000000001"
+  - "0x2000000000000000000000000000000000000002"
+
+# Save failing inputs (VERY useful)
+corpusDir: "echidna-corpus"
+
+# Reduce noisy output
+quiet: false

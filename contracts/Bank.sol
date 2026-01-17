@@ -1,20 +1,18 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
 contract Bank {
-    mapping(address => uint) balances;
+    uint public balance;
 
     function deposit() public payable {
-        balances[msg.sender] += msg.value;
+        balance += msg.value;
     }
 
-    function withdraw() public {
-        uint bal = balances[msg.sender];
-        require(bal > 0);
+    function withdraw(uint amount) public {
+        require(balance >= amount);
+        balance -= amount;
+        payable(msg.sender).transfer(amount);
+    }
 
-        (bool sent, ) = msg.sender.call{value: bal}("");
-        require(sent);
-
-        balances[msg.sender] = 0;
+    // 👇 ECHIDNA PROPERTY
+    function echidna_balance_never_negative() public view returns (bool) {
+        return balance >= 0;
     }
 }
