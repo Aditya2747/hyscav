@@ -1,15 +1,19 @@
 """
 Report generator module for HySCAV.
 
-This module generates JSON reports containing analysis results,
+This module generates Excel reports containing analysis results,
 including vulnerability findings, risk assessments, and tool execution details.
 """
 
-import json
 import os
 import logging
 from datetime import datetime
 from typing import Dict, List, Any, Optional
+
+try:
+    import pandas as pd
+except ImportError:
+    raise ImportError("pandas and openpyxl required. Install with: pip install pandas openpyxl")
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +27,7 @@ def generate_report(
     issues: List[Dict[str, Any]]
 ) -> str:
     """
-    Generate a JSON report with analysis results.
+    Generate an Excel report with analysis results.
 
     This function creates a comprehensive report containing:
     - Contract information
@@ -52,7 +56,7 @@ def generate_report(
         ...     [{"tool": "slither", "title": "reentrancy"}]
         ... )
         >>> print(report_path)
-        reports/report_Bank.sol.json
+        reports/report_Bank.sol.xlsx
     """
     report: Dict[str, Any] = {
         "contract": os.path.basename(contract_path),
@@ -74,12 +78,68 @@ def generate_report(
 
     report_file: str = os.path.join(
         report_dir,
-        f"report_{os.path.basename(contract_path)}.json"
+        f"report_{os.path.basename(contract_path)}.xlsx"
     )
 
     try:
-        with open(report_file, "w", encoding="utf-8") as f:
-            json.dump(report, f, indent=4)
+        # Prepare vulnerability data for Excel
+        vuln_data = []
+        for issue in issues:
+            # Handle line numbers (could be list or single value)
+            line = issue.get('line', [])
+            if isinstance(line, list):
+                line_str = ', '.join(map(str, line))
+            else:
+                line_str = str(line)
+            
+            vuln_data.append({
+                'Tool': issue.get('tool', ''),
+                'Title': issue.get('title', ''),
+                'Severity': issue.get('severity', ''),
+                'Contract': issue.get('contract', ''),
+                'Function': issue.get('function', ''),
+                'Line': line_str,
+                'Description': issue.get('description', '')
+            })
+        
+        # Create DataFrames for Excel sheets
+        df_vulns = pd.DataFrame(vuln_data) if vuln_data else pd.DataFrame()
+        
+        # Create summary DataFrame
+        summary_data = [{
+            'Contract': report['contract'],
+            'Timestamp': report['timestamp'],
+            'Risk Level': risk_level,
+            'Risk Score': risk_score,
+            'Total Issues': len(issues),
+            'High': features.get('high', 0),
+            'Medium': features.get('medium', 0),
+            'Low': features.get('low', 0),
+            'Tools Executed': ', '.join(tools_run)
+        }]
+        df_summary = pd.DataFrame(summary_data)
+        
+        # Write to Excel with multiple sheets
+        with pd.ExcelWriter(report_file, engine='openpyxl') as writer:
+            df_summary.to_excel(writer, sheet_name='Summary', index=False)
+            if not df_vulns.empty:
+                df_vulns.to_excel(writer, sheet_name='Vulnerabilities', index=False)
+            
+            # Auto-adjust column widths
+            for sheet_name in writer.sheets:
+                worksheet = writer.sheets[sheet_name]
+                for column in worksheet.columns:
+                    max_length = 0
+                    column_letter = column[0].column_letter
+                    for cell in column:
+                        try:
+                            if len(str(cell.value)) > max_length:
+                                max_length = len(str(cell.value))
+                        except:
+                            pass
+                    adjusted_width = min(max_length + 2, 50)
+                    worksheet.column_dimensions[column_letter].width = adjusted_width
+        
         logger.info(f"[REPORT] Report generated: {report_file}")
     except Exception as e:
         logger.error(f"[REPORT] Failed to generate report: {e}")
