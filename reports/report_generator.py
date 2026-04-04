@@ -26,7 +26,9 @@ def update_master_summary(
     key_vuln: str,
     report_file: str
 ):
-    \"\"\"Append analysis results to master summary Excel file.\"\"\"
+    """
+    Append analysis results to master summary Excel file.
+    """
     import pandas as pd
     from datetime import datetime
     import os
@@ -36,7 +38,7 @@ def update_master_summary(
     
     contract_name = os.path.basename(contract_path)
     
-    new_row = [{
+    new_row = pd.DataFrame([{
         'Timestamp': datetime.now().strftime('%m-%d-%Y %H:%M'),
         'Contract': contract_name,
         'Total Issues': total_issues,
@@ -45,33 +47,28 @@ def update_master_summary(
         'Risk Level': risk_level,
         'Key Vulnerability': key_vuln,
         'Report File': os.path.basename(report_file)
-    }]
+    }])
     
     try:
-        # Load existing Excel
         existing_df = pd.read_excel(master_path, sheet_name='Summary')
-        summary_df = pd.concat([existing_df, pd.DataFrame(new_row)], ignore_index=True)
-        
-        # Append/overwrite sheet
-        with pd.ExcelWriter(master_path, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
-            summary_df.to_excel(writer, sheet_name='Summary', index=False)
-        
+        summary_df = pd.concat([existing_df, new_row], ignore_index=True)
+        summary_df.to_excel(master_path, sheet_name='Summary', index=False)
         print(f"[MASTER SUMMARY] Appended to Excel: {master_path}")
     except FileNotFoundError:
-        # Create new
-        summary_df = pd.DataFrame(new_row)
+        summary_df = new_row
         summary_df.to_excel(master_path, sheet_name='Summary', index=False)
         print(f"[MASTER SUMMARY] Created Excel: {master_path}")
     except Exception as e:
-        print(f"[MASTER SUMMARY] Excel error: {e}, fallback CSV")
+        print(f"[MASTER SUMMARY] Excel error: {e}, fallback to CSV")
         csv_path = "reports/contracts_summary.csv"
         try:
             existing_df = pd.read_csv(csv_path)
-            summary_df = pd.concat([existing_df, pd.DataFrame(new_row)], ignore_index=True)
-        except:
-            summary_df = pd.DataFrame(new_row)
+            summary_df = pd.concat([existing_df, new_row], ignore_index=True)
+        except FileNotFoundError:
+            summary_df = new_row
         summary_df.to_csv(csv_path, index=False)
         print(f"[MASTER SUMMARY] Fallback CSV: {csv_path}")
+
 
 def generate_report(
     contract_path: str,
@@ -81,7 +78,6 @@ def generate_report(
     tools_run: List[str],
     issues: List[Dict[str, Any]]
 ) -> str:
-
     """
     Generate an Excel report with analysis results.
 
@@ -114,7 +110,7 @@ def generate_report(
         >>> print(report_path)
         reports/report_Bank.sol.xlsx
     """
-    report: Dict[str, Any] = {
+    report = {
         "contract": os.path.basename(contract_path),
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "static_analysis_features": features,
@@ -129,19 +125,17 @@ def generate_report(
         }
     }
 
-    report_dir: str = "reports"
+    report_dir = "reports"
     os.makedirs(report_dir, exist_ok=True)
 
-    report_file: str = os.path.join(
+    report_file = os.path.join(
         report_dir,
         f"report_{os.path.basename(contract_path)}.xlsx"
     )
 
     try:
-        # Prepare vulnerability data for Excel
         vuln_data = []
         for issue in issues:
-            # Handle line numbers (could be list or single value)
             line = issue.get('line', [])
             if isinstance(line, list):
                 line_str = ', '.join(map(str, line))
@@ -158,10 +152,8 @@ def generate_report(
                 'Description': issue.get('description', '')
             })
         
-        # Create DataFrames for Excel sheets
         df_vulns = pd.DataFrame(vuln_data) if vuln_data else pd.DataFrame()
         
-        # Create summary DataFrame
         summary_data = [{
             'Contract': report['contract'],
             'Timestamp': report['timestamp'],
@@ -175,13 +167,11 @@ def generate_report(
         }]
         df_summary = pd.DataFrame(summary_data)
         
-        # Write to Excel with multiple sheets
         with pd.ExcelWriter(report_file, engine='openpyxl') as writer:
             df_summary.to_excel(writer, sheet_name='Summary', index=False)
             if not df_vulns.empty:
                 df_vulns.to_excel(writer, sheet_name='Vulnerabilities', index=False)
             
-            # Auto-adjust column widths
             for sheet_name in writer.sheets:
                 worksheet = writer.sheets[sheet_name]
                 for column in worksheet.columns:
@@ -223,3 +213,4 @@ def generate_report(
         raise
 
     return report_file
+
