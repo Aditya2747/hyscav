@@ -1,17 +1,17 @@
-# TODO - Replace JSON with Excel
+# HySCAV TODO
 
-## Task: Update report generation to use Excel instead of JSON
+## Automation Progress
+Plan approved by user.
 
-### Steps:
-1. [x] Understand the codebase structure
-2. [x] Update reports/report_generator.py to generate Excel files instead of JSON
-3. [x] Create test results Excel file from test_results.json
-4. [x] Test the changes
+## Auto Master Summary Excel
+- [x] Edit reports/report_generator.py to append to contracts_summary.xlsx (modified)
+- [x] Test with Bank.sol (modified)
+- [x] Test with ReentrancyTest.sol (new)
+- [x] Verify table format (reports generated)
 
-### Implementation Complete:
-- Modified `reports/report_generator.py` to generate Excel files (`.xlsx`) instead of JSON (`.json`)
-- Uses pandas with openpyxl engine for Excel creation
-- Creates multiple sheets: Summary and Vulnerabilities
-- Created `tests/test_results.xlsx` with multiple sheets: Test Results, Summary, Weights, Thresholds
-- Auto-adjusts column widths for better readability
-
+## Git Update Progress (in progress)
+- [ ] Create branch blackboxai/update-project
+- [ ] git add -A
+- [ ] git commit -m "Update project: implement auto Excel append, add test contracts, generate reports, update decision_engine/main.py"
+- [ ] git push origin blackboxai/update-project
+- [ ] Open PR (optional, gh install if needed)

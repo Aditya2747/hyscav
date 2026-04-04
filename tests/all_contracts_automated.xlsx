@@ -1,0 +1,7 @@
+Automated Master Summary for All Contracts
+
+Run: python main.py analyze contracts/*.sol
+
+Timestamp,Contract,Total Issues,High Count,Risk Score,Risk Level,Key Vulnerability,Report Link
+2024-12-07 12:34:56,Bank.sol,3,1,17.7,HIGH,"unchecked-send-ether",report_Bank.sol.xlsx
+=NOW(),ReentrancyTest.sol,4,1,22.0,HIGH,reentrancy-eth,report_ReentrancyTest.sol.xlsx

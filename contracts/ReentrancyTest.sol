@@ -1,27 +1,7 @@
-// contract Bank {
-//     uint public balance;
-
-//     function deposit() public payable {
-//         balance += msg.value;
-//     }
-
-//     function withdraw(uint amount) public {
-//         require(balance >= amount);
-//         balance -= amount;
-//         payable(msg.sender).transfer(amount);
-//     }
-
-//     // 👇 ECHIDNA PROPERTY
-//     function echidna_balance_never_negative() public view returns (bool) {
-//         return balance >= 0;
-//     }
-// }
-
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-contract DepositFunds {
+contract ReentrancyTest {
     mapping(address => uint) public balances;
 
     function deposit() public payable {
@@ -32,6 +12,7 @@ contract DepositFunds {
         uint bal = balances[msg.sender];
         require(bal > 0, "No balance");
 
+        // Vulnerable: External call before state update (reentrancy)
         (bool sent, ) = msg.sender.call{value: bal}("");
         require(sent, "Failed to send Ether");
 
@@ -41,5 +22,9 @@ contract DepositFunds {
     function getBalance() public view returns (uint) {
         return address(this).balance;
     }
-}
 
+    // Echidna property test
+    function echidna_balance_cannot_decrease() public view returns (bool) {
+        return getBalance() >= 0;
+    }
+}

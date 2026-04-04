@@ -1,0 +1,207 @@
+{
+  "test_suite": "HySCAV ML Risk Model Test Results",
+  "test_date": "2024-03-11",
+  "total_tests": 11,
+  "passed": 11,
+  "failed": 0,
+  "success_rate": "100%",
+  "vulnerabilities_tested": [
+    {
+      "name": "Reentrancy Attack",
+      "data_name": "reentrancy",
+      "expected_level": "HIGH",
+      "actual_level": "HIGH",
+      "risk_score": 26.20,
+      "expected_min_score": 10.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 2,
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "vulnerabilities": ["reentrancy"]
+      }
+    },
+    {
+      "name": "Integer Overflow",
+      "data_name": "overflow",
+      "expected_level": "HIGH",
+      "actual_level": "HIGH",
+      "risk_score": 24.20,
+      "expected_min_score": 10.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 2,
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "vulnerabilities": ["overflow"]
+      }
+    },
+    {
+      "name": "Access Control Issues",
+      "data_name": "access_control",
+      "expected_level": "MEDIUM",
+      "actual_level": "MEDIUM",
+      "risk_score": 14.20,
+      "expected_min_score": 3.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 2,
+        "high": 0,
+        "medium": 0,
+        "low": 2,
+        "vulnerabilities": ["access_control"]
+      }
+    },
+    {
+      "name": "Unchecked Calls",
+      "data_name": "unchecked_calls",
+      "expected_level": "HIGH",
+      "actual_level": "HIGH",
+      "risk_score": 20.70,
+      "expected_min_score": 10.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 2,
+        "high": 1,
+        "medium": 1,
+        "low": 0,
+        "vulnerabilities": ["unchecked_call"]
+      }
+    },
+    {
+      "name": "tx.origin Usage",
+      "data_name": "tx_origin",
+      "expected_level": "MEDIUM",
+      "actual_level": "MEDIUM",
+      "risk_score": 9.80,
+      "expected_min_score": 3.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 1,
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "vulnerabilities": ["tx_origin"]
+      }
+    },
+    {
+      "name": "Delegatecall Risk",
+      "data_name": "delegatecall",
+      "expected_level": "HIGH",
+      "actual_level": "HIGH",
+      "risk_score": 25.20,
+      "expected_min_score": 10.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 2,
+        "high": 2,
+        "medium": 0,
+        "low": 0,
+        "vulnerabilities": ["delegatecall"]
+      }
+    },
+    {
+      "name": "Timestamp Dependence",
+      "data_name": "timestamp",
+      "expected_level": "MEDIUM",
+      "actual_level": "MEDIUM",
+      "risk_score": 9.60,
+      "expected_min_score": 3.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 1,
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "vulnerabilities": ["timestamp"]
+      }
+    },
+    {
+      "name": "Weak Randomness",
+      "data_name": "weak_randomness",
+      "expected_level": "MEDIUM",
+      "actual_level": "MEDIUM",
+      "risk_score": 11.60,
+      "expected_min_score": 3.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 1,
+        "high": 0,
+        "medium": 1,
+        "low": 0,
+        "vulnerabilities": ["weak_randomness"]
+      }
+    },
+    {
+      "name": "Critical Multiple",
+      "data_name": "critical",
+      "expected_level": "HIGH",
+      "actual_level": "HIGH",
+      "risk_score": 67.70,
+      "expected_min_score": 25.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 5,
+        "high": 3,
+        "medium": 2,
+        "low": 0,
+        "vulnerabilities": ["reentrancy", "overflow", "unchecked_call", "tx_origin", "weak_randomness"]
+      }
+    },
+    {
+      "name": "Clean Contract",
+      "data_name": "clean",
+      "expected_level": "LOW",
+      "actual_level": "LOW",
+      "risk_score": 0.00,
+      "expected_min_score": 0.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "vulnerabilities": []
+      }
+    },
+    {
+      "name": "Low Severity Only",
+      "data_name": "low_only",
+      "expected_level": "MEDIUM",
+      "actual_level": "MEDIUM",
+      "risk_score": 11.90,
+      "expected_min_score": 3.0,
+      "status": "PASS",
+      "key_features": {
+        "total_issues": 2,
+        "high": 0,
+        "medium": 0,
+        "low": 2,
+        "vulnerabilities": ["access_control"]
+      }
+    }
+  ],
+  "vulnerability_weights": {
+    "high": 5.0,
+    "medium": 2.5,
+    "low": 1.0,
+    "high_risk_category": 2.0,
+    "medium_risk_category": 1.5,
+    "has_reentrancy": 8.0,
+    "has_overflow": 6.0,
+    "has_unchecked_call": 5.0,
+    "has_access_control": 4.0,
+    "has_tx_origin": 4.0,
+    "has_delegatecall": 7.0,
+    "has_timestamp": 3.0,
+    "has_weak_randomness": 5.0
+  },
+  "risk_thresholds": {
+    "HIGH": 15.0,
+    "MEDIUM": 5.0,
+    "LOW": 0.0
+  }
+}
+

@@ -18,6 +18,45 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+def update_master_summary(
+    contract_path: str,
+    features: Dict[str, Any],
+    risk_level: str,
+    risk_score: float,
+    total_issues: int,
+    key_vuln: str,
+    report_file: str
+):
+    """Append analysis results to master summary CSV."""
+    import pandas as pd
+    from datetime import datetime
+    
+    master_path = "reports/contracts_summary.csv"
+    os.makedirs(os.path.dirname(master_path), exist_ok=True)
+    
+    contract_name = os.path.basename(contract_path)
+    
+    new_row = pd.DataFrame([{
+'Timestamp': datetime.now().strftime('%m-%d-%Y %H:%M'),
+        'Contract': contract_name,
+        'Total Issues': total_issues,
+        'High': features.get('high', 0),
+        'Risk Score': round(risk_score, 1),
+        'Risk Level': risk_level,
+        'Key Vulnerability': key_vuln,
+        'Report File': os.path.basename(report_file)
+    }])
+    
+    try:
+        existing_df = pd.read_csv(master_path)
+        summary_df = pd.concat([existing_df, new_row], ignore_index=True)
+    except FileNotFoundError:
+        summary_df = new_row
+    
+    summary_df.to_csv(master_path, index=False)
+    
+    print(f"[MASTER SUMMARY] Updated: {master_path}")
+
 def generate_report(
     contract_path: str,
     features: Dict[str, Any],
@@ -26,6 +65,7 @@ def generate_report(
     tools_run: List[str],
     issues: List[Dict[str, Any]]
 ) -> str:
+
     """
     Generate an Excel report with analysis results.
 
@@ -141,9 +181,32 @@ def generate_report(
                     worksheet.column_dimensions[column_letter].width = adjusted_width
         
         logger.info(f"[REPORT] Report generated: {report_file}")
+        
+# Auto-update master summary
+        # Find key vulnerability (first high severity or reentrancy)
+        key_vuln = "None"
+        for issue in issues:
+            if issue.get('severity', '').lower() == 'high':
+                key_vuln = issue.get('title', 'Unknown High')
+                break
+            if 'reentrancy' in str(issue.get('title', '')).lower():
+                key_vuln = issue.get('title', 'Reentrancy')
+                break
+        
+        update_master_summary(
+            contract_path, 
+            features, 
+            risk_level, 
+            risk_score, 
+            len(issues),
+            key_vuln,
+            report_file
+        )
+    
     except Exception as e:
         logger.error(f"[REPORT] Failed to generate report: {e}")
         raise
+
 
     return report_file
 

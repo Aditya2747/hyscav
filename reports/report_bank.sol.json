@@ -1,0 +1,51 @@
+{
+    "contract": "bank.sol",
+    "timestamp": "2026-01-22 10:21:12",
+    "static_analysis_features": {
+        "total_issues": 2,
+        "high": 1,
+        "medium": 1,
+        "low": 0
+    },
+    "risk_assessment": {
+        "risk_level": "MEDIUM",
+        "risk_score": 5
+    },
+    "tools_executed": [
+        "Mythril",
+        "Echidna"
+    ],
+    "vulnerabilities": {
+        "total": 2,
+        "details": [
+            {
+                "tool": "slither",
+                "title": "arbitrary-send-eth",
+                "severity": "High",
+                "contract": null,
+                "function": "withdraw",
+                "line": [
+                    8,
+                    9,
+                    10,
+                    11,
+                    12
+                ],
+                "description": "Bank.withdraw(uint256) (contracts/bank.sol#8-12) sends eth to arbitrary user\n\tDangerous calls:\n\t- address(msg.sender).transfer(amount) (contracts/bank.sol#11)\n"
+            },
+            {
+                "tool": "slither",
+                "title": "tautology",
+                "severity": "Medium",
+                "contract": null,
+                "function": "echidna_balance_never_negative",
+                "line": [
+                    15,
+                    16,
+                    17
+                ],
+                "description": "Bank.echidna_balance_never_negative() (contracts/bank.sol#15-17) contains a tautology or contradiction:\n\t- balance >= 0 (contracts/bank.sol#16)\n"
+            }
+        ]
+    }
+}

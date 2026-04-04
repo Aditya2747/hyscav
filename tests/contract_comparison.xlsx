@@ -1,0 +1,7 @@
+Contract Comparison Sheet
+
+Bank.sol: 3 Slither issues, Risk 17.7 HIGH, report_Bank.sol.xlsx
+ReentrancyTest.sol: 4 Slither issues (incl reentrancy-eth High), Risk 22.0 HIGH, report_ReentrancyTest.sol.xlsx
+
+Open individual reports for details.
+
