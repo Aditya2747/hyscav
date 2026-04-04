@@ -1,5 +1,4 @@
-"""
-Report generator module for HySCAV.
+"""Report generator module for HySCAV.
 
 This module generates Excel reports containing analysis results,
 including vulnerability findings, risk assessments, and tool execution details.
@@ -27,17 +26,18 @@ def update_master_summary(
     key_vuln: str,
     report_file: str
 ):
-    """Append analysis results to master summary CSV."""
+    \"\"\"Append analysis results to master summary Excel file.\"\"\"
     import pandas as pd
     from datetime import datetime
+    import os
     
-    master_path = "reports/contracts_summary.csv"
+    master_path = "reports/contracts_summary.xlsx"
     os.makedirs(os.path.dirname(master_path), exist_ok=True)
     
     contract_name = os.path.basename(contract_path)
     
-    new_row = pd.DataFrame([{
-'Timestamp': datetime.now().strftime('%m-%d-%Y %H:%M'),
+    new_row = [{
+        'Timestamp': datetime.now().strftime('%m-%d-%Y %H:%M'),
         'Contract': contract_name,
         'Total Issues': total_issues,
         'High': features.get('high', 0),
@@ -45,17 +45,33 @@ def update_master_summary(
         'Risk Level': risk_level,
         'Key Vulnerability': key_vuln,
         'Report File': os.path.basename(report_file)
-    }])
+    }]
     
     try:
-        existing_df = pd.read_csv(master_path)
-        summary_df = pd.concat([existing_df, new_row], ignore_index=True)
+        # Load existing Excel
+        existing_df = pd.read_excel(master_path, sheet_name='Summary')
+        summary_df = pd.concat([existing_df, pd.DataFrame(new_row)], ignore_index=True)
+        
+        # Append/overwrite sheet
+        with pd.ExcelWriter(master_path, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:
+            summary_df.to_excel(writer, sheet_name='Summary', index=False)
+        
+        print(f"[MASTER SUMMARY] Appended to Excel: {master_path}")
     except FileNotFoundError:
-        summary_df = new_row
-    
-    summary_df.to_csv(master_path, index=False)
-    
-    print(f"[MASTER SUMMARY] Updated: {master_path}")
+        # Create new
+        summary_df = pd.DataFrame(new_row)
+        summary_df.to_excel(master_path, sheet_name='Summary', index=False)
+        print(f"[MASTER SUMMARY] Created Excel: {master_path}")
+    except Exception as e:
+        print(f"[MASTER SUMMARY] Excel error: {e}, fallback CSV")
+        csv_path = "reports/contracts_summary.csv"
+        try:
+            existing_df = pd.read_csv(csv_path)
+            summary_df = pd.concat([existing_df, pd.DataFrame(new_row)], ignore_index=True)
+        except:
+            summary_df = pd.DataFrame(new_row)
+        summary_df.to_csv(csv_path, index=False)
+        print(f"[MASTER SUMMARY] Fallback CSV: {csv_path}")
 
 def generate_report(
     contract_path: str,
@@ -182,8 +198,7 @@ def generate_report(
         
         logger.info(f"[REPORT] Report generated: {report_file}")
         
-# Auto-update master summary
-        # Find key vulnerability (first high severity or reentrancy)
+        # Auto-update master summary
         key_vuln = "None"
         for issue in issues:
             if issue.get('severity', '').lower() == 'high':
@@ -207,6 +222,4 @@ def generate_report(
         logger.error(f"[REPORT] Failed to generate report: {e}")
         raise
 
-
     return report_file
-
