@@ -1,0 +1,11 @@
+total_issues,high,medium,low,high_risk_categories,medium_risk_categories,unique_vuln_types,has_reentrancy,has_overflow,has_unchecked_call,has_access_control,has_tx_origin,has_delegatecall,has_timestamp,has_weak_randomness,contract_complexity,external_calls,state_variables,label,contract
+3,1,0,0,1,0,3,False,False,True,False,False,False,False,False,12,0.0,0.0,2,Bank.sol
+1,0,0,0,0,0,1,False,False,False,False,False,False,False,False,3,0.0,0.0,0,IntegerOverflowTest.sol
+4,1,1,0,1,0,4,False,False,True,False,False,False,False,False,15,0.0,0.0,2,ReentrancyTest.sol
+4,1,1,0,1,0,4,False,False,True,False,False,False,False,False,15,0.0,0.0,2,reentrency.sol
+5,0,2,2,0,0,5,False,False,False,False,False,False,False,False,15,0.0,0.0,1,TxOriginTest.sol
+1,1,0,0,1,0,1,True,False,False,False,False,False,False,False,4,,,2,test_reentrancy
+1,1,0,0,1,0,1,False,True,False,False,False,False,False,False,4,,,2,test_overflow
+1,0,1,0,0,1,1,False,False,False,False,True,False,False,False,3,,,1,test_txorigin
+0,0,0,0,0,0,0,False,False,False,False,False,False,False,False,0,,,0,test_clean
+3,0,1,2,0,1,2,False,False,False,True,False,False,False,False,5,,,0,test_low

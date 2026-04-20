@@ -3,7 +3,6 @@ import json
 import requests
 import git
 from pathlib import Path
-from rich.progress import Progress
 from rich.console import Console
 
 console = Console()
@@ -46,7 +45,7 @@ class ContractFetcher:
                 "address": contract_info["ContractAddress"],
                 "source_code": source_code,
                 "verified": True,
-                "known_vulns": []  # No labels from Etherscan
+                "known_vulns": []  
             })
         
         console.print(f"[green]Saved {len(data['result'][:limit])} Etherscan contracts[/green]")
@@ -64,22 +63,24 @@ class ContractFetcher:
             vulns_data = json.load(f)
         
         # Copy .sol files
-        for vuln_entry in vulns_data["vulnerabilities"]:
+        saved_count = 0
+        for vuln_entry in vulns_data:
             sc_id = vuln_entry["smartcontract_id"]
             sol_path_src = smartbugs_dir / sc_id / f"{sc_id}.sol"
             if sol_path_src.exists():
                 sol_path_dest = self.contracts_dir / f"smartbugs_{sc_id}.sol"
                 sol_path_dest.write_text(sol_path_src.read_text())
                 
-                known_vulns = vuln_entry["vulnerability"]
+                known_vulns = vuln_entry.get("vulnerability", [])
                 self.metadata["contracts"].append({
                     "name": f"smartbugs_{sc_id}",
                     "source": "SmartBugs Curated",
                     "known_vulns": known_vulns,
                     "verified": False
                 })
+                saved_count += 1
         
-        console.print(f"[green]Saved {len(vulns_data['vulnerabilities'])} SmartBugs contracts[/green]")
+        console.print(f"[green]Saved {saved_count} SmartBugs contracts[/green]")
     
     def save_metadata(self):
         self.metadata_file.write_text(json.dumps(self.metadata, indent=2))
@@ -90,4 +91,8 @@ class ContractFetcher:
         if self.etherscan_key:
             self.fetch_etherscan_verified(10)
         self.save_metadata()
+
+if __name__ == "__main__":
+    f = ContractFetcher()
+    f.run()
 

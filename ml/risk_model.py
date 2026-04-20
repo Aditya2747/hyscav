@@ -12,6 +12,11 @@ import math
 
 logger = logging.getLogger(__name__)
 
+import joblib
+import pandas as pd
+import numpy as np
+
+
 
 # Default weights for different feature categories
 DEFAULT_WEIGHTS: Dict[str, float] = {
@@ -33,11 +38,19 @@ DEFAULT_WEIGHTS: Dict[str, float] = {
     "has_weak_randomness": 5.0,
     # Complexity factors
     "unique_vuln_types": 1.5,
-    "contract_complexity": 0.1,
+"contract_complexity": 0.1,
 }
 
 
+FEATURE_COLS = [
+    'total_issues', 'high', 'medium', 'low', 'high_risk_categories', 'medium_risk_categories', 'unique_vuln_types', 
+    'has_reentrancy', 'has_overflow', 'has_unchecked_call', 'has_access_control', 'has_tx_origin', 'has_delegatecall', 
+    'has_timestamp', 'has_weak_randomness', 'contract_complexity', 'external_calls', 'state_variables'
+]
+
+
 @dataclass
+
 class RiskThresholds:
     """Risk level thresholds for classification."""
     HIGH: float = 15.0
@@ -81,7 +94,17 @@ class EnhancedRiskModel:
         """
         self.weights = weights if weights is not None else DEFAULT_WEIGHTS.copy()
         self.thresholds = thresholds if thresholds is not None else RiskThresholds()
-        logger.info("EnhancedRiskModel initialized with custom weights")
+
+        # Load trained model if available
+        self.model = None
+        self.feature_cols = FEATURE_COLS
+        try:
+            self.model = joblib.load('model.pkl')  # in root
+            logger.info("Trained ML model loaded")
+        except:
+            logger.info("No trained model found, using rule-based")
+
+
 
     def predict_risk(self, features: Dict[str, Any]) -> Tuple[str, float]:
         """
