@@ -5,6 +5,7 @@ including vulnerability findings, risk assessments, and tool execution details.
 """
 
 import os
+import json
 import logging
 from datetime import datetime
 from typing import Dict, List, Any, Optional
@@ -76,7 +77,8 @@ def generate_report(
     risk_level: str,
     risk_score: float,
     tools_run: List[str],
-    issues: List[Dict[str, Any]]
+    issues: List[Dict[str, Any]],
+    tool_outputs: Optional[Dict[str, Any]] = None
 ) -> str:
     """
     Generate an Excel report with analysis results.
@@ -122,7 +124,8 @@ def generate_report(
         "vulnerabilities": {
             "total": len(issues),
             "details": issues
-        }
+        },
+        "tool_outputs": tool_outputs or {}
     }
 
     report_dir = "reports"
@@ -172,6 +175,62 @@ def generate_report(
             if not df_vulns.empty:
                 df_vulns.to_excel(writer, sheet_name='Vulnerabilities', index=False)
             
+# Combined Tool Outputs sheet
+            if tool_outputs:
+                tool_output_rows = []
+                for tool_name, output in tool_outputs.items():
+                    issues_found = output.get("issues_found", 0)
+                    details = output.get("details", [])
+                    if details:
+                        for issue in details:
+                            row = {
+                                "Tool": tool_name,
+                                "Issues Found": issues_found,
+                                "Title": issue.get("title", "N/A"),
+                                "Severity": issue.get("severity", "N/A"),
+                                "Description": issue.get("description", "N/A"),
+                                "Contract": issue.get("contract", "N/A"),
+                                "Function": issue.get("function", "N/A"),
+                                "Line": str(issue.get("line", "N/A"))
+                            }
+                            # Add Echidna-specific enhanced fields
+                            if tool_name == "Echidna":
+                                row["Error Location"] = issue.get("error_location", "")
+                                row["Coverage"] = issue.get("coverage", "")
+                                row["Calls"] = issue.get("calls", 0)
+                                row["Total Calls"] = issue.get("total_calls", 0)
+                                row["Seed"] = issue.get("seed", 0)
+                                row["Calldata"] = issue.get("calldata", "")
+                                row["Shrinking Attempts"] = issue.get("shrinking_attempts", 0)
+                                row["Execution Time"] = issue.get("execution_time", "")
+                            tool_output_rows.append(row)
+                    else:
+                        row = {
+                            "Tool": tool_name,
+                            "Issues Found": issues_found,
+                            "Title": "N/A",
+                            "Severity": "N/A",
+                            "Description": "No issues detected or tool skipped",
+                            "Contract": "N/A",
+                            "Function": "N/A",
+                            "Line": "N/A"
+                        }
+                        # Add empty Echidna fields for consistency
+                        if tool_name == "Echidna":
+                            row["Error Location"] = ""
+                            row["Coverage"] = ""
+                            row["Calls"] = 0
+                            row["Total Calls"] = 0
+                            row["Seed"] = 0
+                            row["Calldata"] = ""
+                            row["Shrinking Attempts"] = 0
+                            row["Execution Time"] = ""
+                        tool_output_rows.append(row)
+                
+                if tool_output_rows:
+                    df_tool_outputs = pd.DataFrame(tool_output_rows)
+                    df_tool_outputs.to_excel(writer, sheet_name='Tool Outputs', index=False)
+            
             for sheet_name in writer.sheets:
                 worksheet = writer.sheets[sheet_name]
                 for column in worksheet.columns:
@@ -186,7 +245,19 @@ def generate_report(
                     adjusted_width = min(max_length + 2, 50)
                     worksheet.column_dimensions[column_letter].width = adjusted_width
         
-        logger.info(f"[REPORT] Report generated: {report_file}")
+        print(f"[REPORT] Report generated: {report_file}")
+        
+        # Also generate detailed JSON report
+        json_report_file = os.path.join(
+            report_dir,
+            f"report_{os.path.basename(contract_path)}.json"
+        )
+        try:
+            with open(json_report_file, "w", encoding="utf-8") as jf:
+                json.dump(report, jf, indent=2, default=str)
+            print(f"[REPORT] JSON report generated: {json_report_file}")
+        except Exception as e:
+            logger.warning(f"[REPORT] Failed to generate JSON report: {e}")
         
         # Auto-update master summary
         key_vuln = "None"
