@@ -1,51 +1,668 @@
 {
-    "contract": "bank.sol",
-    "timestamp": "2026-01-22 10:21:12",
-    "static_analysis_features": {
-        "total_issues": 2,
-        "high": 1,
-        "medium": 1,
-        "low": 0
-    },
-    "risk_assessment": {
-        "risk_level": "MEDIUM",
-        "risk_score": 5
-    },
-    "tools_executed": [
-        "Mythril",
-        "Echidna"
-    ],
-    "vulnerabilities": {
-        "total": 2,
-        "details": [
+  "contract": "Bank.sol",
+  "timestamp": "2026-05-06 11:51:36",
+  "static_analysis_features": {
+    "total_issues": 3,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "high_risk_categories": 1,
+    "medium_risk_categories": 0,
+    "unique_vuln_types": 3,
+    "has_reentrancy": false,
+    "has_overflow": false,
+    "has_unchecked_call": true,
+    "has_access_control": false,
+    "has_tx_origin": false,
+    "has_delegatecall": false,
+    "has_timestamp": false,
+    "has_weak_randomness": false,
+    "contract_complexity": 12,
+    "external_calls": 0,
+    "state_variables": 0
+  },
+  "risk_assessment": {
+    "risk_level": "HIGH",
+    "risk_score": 17.7
+  },
+  "tools_executed": [
+    "Mythril",
+    "Echidna"
+  ],
+  "vulnerabilities": {
+    "total": 5,
+    "details": [
+      {
+        "tool": "slither",
+        "title": "reentrancy-eth",
+        "severity": "High",
+        "contract": "unknown",
+        "function": "withdraw",
+        "line": [
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "description": "Reentrancy in DepositFunds.withdraw() (contracts/Bank.sol#31-39):\n\tExternal calls:\n\t- (sent,None) = msg.sender.call{value: bal}() (contracts/Bank.sol#35)\n\tState variables written after the call(s):\n\t- balances[msg.sender] = 0 (contracts/Bank.sol#38)\n\tDepositFunds.balances (contracts/Bank.sol#25) can be used in cross function reentrancies:\n\t- DepositFunds.balances (contracts/Bank.sol#25)\n\t- DepositFunds.deposit() (contracts/Bank.sol#27-29)\n\t- DepositFunds.withdraw() (contracts/Bank.sol#31-39)\n"
+      },
+      {
+        "tool": "slither",
+        "title": "solc-version",
+        "severity": "Informational",
+        "contract": "unknown",
+        "function": "^0.8.13",
+        "line": [
+          22
+        ],
+        "description": "Version constraint ^0.8.13 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- VerbatimInvalidDeduplication\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- StorageWriteRemovalBeforeConditionalTermination\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- InlineAssemblyMemorySideEffects\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation.\nIt is used by:\n\t- ^0.8.13 (contracts/Bank.sol#22)\n"
+      },
+      {
+        "tool": "slither",
+        "title": "low-level-calls",
+        "severity": "Informational",
+        "contract": "unknown",
+        "function": "withdraw",
+        "line": [
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "description": "Low level call in DepositFunds.withdraw() (contracts/Bank.sol#31-39):\n\t- (sent,None) = msg.sender.call{value: bal}() (contracts/Bank.sol#35)\n"
+      },
+      {
+        "tool": "Mythril",
+        "title": "Reentrancy (proxy)",
+        "severity": "high",
+        "description": "Slither proxy detected Reentrancy via 'reentrancy-eth' detector",
+        "location": ""
+      },
+      {
+        "tool": "Echidna",
+        "title": "echidna_balance_never_negative",
+        "type": "Property Violation",
+        "severity": "high",
+        "contract": "Bank",
+        "description": "Echidna fuzz test 'echidna_balance_never_negative' failed.",
+        "error_location": "",
+        "coverage": "",
+        "calls": 0,
+        "total_calls": 0,
+        "seed": 0,
+        "calldata": "",
+        "shrinking_attempts": 0,
+        "execution_time": ""
+      }
+    ]
+  },
+  "tool_outputs": {
+    "Slither": {
+      "issues_found": 3,
+      "raw_data": {
+        "success": true,
+        "error": null,
+        "results": {
+          "detectors": [
             {
-                "tool": "slither",
-                "title": "arbitrary-send-eth",
-                "severity": "High",
-                "contract": null,
-                "function": "withdraw",
-                "line": [
-                    8,
-                    9,
-                    10,
-                    11,
-                    12
-                ],
-                "description": "Bank.withdraw(uint256) (contracts/bank.sol#8-12) sends eth to arbitrary user\n\tDangerous calls:\n\t- address(msg.sender).transfer(amount) (contracts/bank.sol#11)\n"
+              "elements": [
+                {
+                  "type": "function",
+                  "name": "withdraw",
+                  "source_mapping": {
+                    "start": 690,
+                    "length": 255,
+                    "filename_relative": "contracts/Bank.sol",
+                    "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                    "filename_short": "contracts/Bank.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      31,
+                      32,
+                      33,
+                      34,
+                      35,
+                      36,
+                      37,
+                      38,
+                      39
+                    ],
+                    "starting_column": 5,
+                    "ending_column": 6
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "DepositFunds",
+                      "source_mapping": {
+                        "start": 525,
+                        "length": 522,
+                        "filename_relative": "contracts/Bank.sol",
+                        "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                        "filename_short": "contracts/Bank.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          24,
+                          25,
+                          26,
+                          27,
+                          28,
+                          29,
+                          30,
+                          31,
+                          32,
+                          33,
+                          34,
+                          35,
+                          36,
+                          37,
+                          38,
+                          39,
+                          40,
+                          41,
+                          42,
+                          43,
+                          44
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 2
+                      }
+                    },
+                    "signature": "withdraw()"
+                  }
+                },
+                {
+                  "type": "node",
+                  "name": "(sent,None) = msg.sender.call{value: bal}()",
+                  "source_mapping": {
+                    "start": 809,
+                    "length": 47,
+                    "filename_relative": "contracts/Bank.sol",
+                    "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                    "filename_short": "contracts/Bank.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      35
+                    ],
+                    "starting_column": 9,
+                    "ending_column": 56
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "function",
+                      "name": "withdraw",
+                      "source_mapping": {
+                        "start": 690,
+                        "length": 255,
+                        "filename_relative": "contracts/Bank.sol",
+                        "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                        "filename_short": "contracts/Bank.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          31,
+                          32,
+                          33,
+                          34,
+                          35,
+                          36,
+                          37,
+                          38,
+                          39
+                        ],
+                        "starting_column": 5,
+                        "ending_column": 6
+                      },
+                      "type_specific_fields": {
+                        "parent": {
+                          "type": "contract",
+                          "name": "DepositFunds",
+                          "source_mapping": {
+                            "start": 525,
+                            "length": 522,
+                            "filename_relative": "contracts/Bank.sol",
+                            "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                            "filename_short": "contracts/Bank.sol",
+                            "is_dependency": false,
+                            "lines": [
+                              24,
+                              25,
+                              26,
+                              27,
+                              28,
+                              29,
+                              30,
+                              31,
+                              32,
+                              33,
+                              34,
+                              35,
+                              36,
+                              37,
+                              38,
+                              39,
+                              40,
+                              41,
+                              42,
+                              43,
+                              44
+                            ],
+                            "starting_column": 1,
+                            "ending_column": 2
+                          }
+                        },
+                        "signature": "withdraw()"
+                      }
+                    }
+                  },
+                  "additional_fields": {
+                    "underlying_type": "external_calls"
+                  }
+                },
+                {
+                  "type": "node",
+                  "name": "balances[msg.sender] = 0",
+                  "source_mapping": {
+                    "start": 914,
+                    "length": 24,
+                    "filename_relative": "contracts/Bank.sol",
+                    "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                    "filename_short": "contracts/Bank.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      38
+                    ],
+                    "starting_column": 9,
+                    "ending_column": 33
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "function",
+                      "name": "withdraw",
+                      "source_mapping": {
+                        "start": 690,
+                        "length": 255,
+                        "filename_relative": "contracts/Bank.sol",
+                        "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                        "filename_short": "contracts/Bank.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          31,
+                          32,
+                          33,
+                          34,
+                          35,
+                          36,
+                          37,
+                          38,
+                          39
+                        ],
+                        "starting_column": 5,
+                        "ending_column": 6
+                      },
+                      "type_specific_fields": {
+                        "parent": {
+                          "type": "contract",
+                          "name": "DepositFunds",
+                          "source_mapping": {
+                            "start": 525,
+                            "length": 522,
+                            "filename_relative": "contracts/Bank.sol",
+                            "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                            "filename_short": "contracts/Bank.sol",
+                            "is_dependency": false,
+                            "lines": [
+                              24,
+                              25,
+                              26,
+                              27,
+                              28,
+                              29,
+                              30,
+                              31,
+                              32,
+                              33,
+                              34,
+                              35,
+                              36,
+                              37,
+                              38,
+                              39,
+                              40,
+                              41,
+                              42,
+                              43,
+                              44
+                            ],
+                            "starting_column": 1,
+                            "ending_column": 2
+                          }
+                        },
+                        "signature": "withdraw()"
+                      }
+                    }
+                  },
+                  "additional_fields": {
+                    "underlying_type": "variables_written",
+                    "variable_name": "balances"
+                  }
+                }
+              ],
+              "description": "Reentrancy in DepositFunds.withdraw() (contracts/Bank.sol#31-39):\n\tExternal calls:\n\t- (sent,None) = msg.sender.call{value: bal}() (contracts/Bank.sol#35)\n\tState variables written after the call(s):\n\t- balances[msg.sender] = 0 (contracts/Bank.sol#38)\n\tDepositFunds.balances (contracts/Bank.sol#25) can be used in cross function reentrancies:\n\t- DepositFunds.balances (contracts/Bank.sol#25)\n\t- DepositFunds.deposit() (contracts/Bank.sol#27-29)\n\t- DepositFunds.withdraw() (contracts/Bank.sol#31-39)\n",
+              "markdown": "Reentrancy in [DepositFunds.withdraw()](contracts/Bank.sol#L31-L39):\n\tExternal calls:\n\t- [(sent,None) = msg.sender.call{value: bal}()](contracts/Bank.sol#L35)\n\tState variables written after the call(s):\n\t- [balances[msg.sender] = 0](contracts/Bank.sol#L38)\n\t[DepositFunds.balances](contracts/Bank.sol#L25) can be used in cross function reentrancies:\n\t- [DepositFunds.balances](contracts/Bank.sol#L25)\n\t- [DepositFunds.deposit()](contracts/Bank.sol#L27-L29)\n\t- [DepositFunds.withdraw()](contracts/Bank.sol#L31-L39)\n",
+              "first_markdown_element": "contracts/Bank.sol#L31-L39",
+              "id": "d9c2cdc32986e4576abf96616a20e974cbcbae33bcbe61c8b6bdabcbf20e353f",
+              "check": "reentrancy-eth",
+              "impact": "High",
+              "confidence": "Medium"
             },
             {
-                "tool": "slither",
-                "title": "tautology",
-                "severity": "Medium",
-                "contract": null,
-                "function": "echidna_balance_never_negative",
-                "line": [
-                    15,
-                    16,
-                    17
-                ],
-                "description": "Bank.echidna_balance_never_negative() (contracts/bank.sol#15-17) contains a tautology or contradiction:\n\t- balance >= 0 (contracts/bank.sol#16)\n"
+              "elements": [
+                {
+                  "type": "pragma",
+                  "name": "^0.8.13",
+                  "source_mapping": {
+                    "start": 499,
+                    "length": 24,
+                    "filename_relative": "contracts/Bank.sol",
+                    "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                    "filename_short": "contracts/Bank.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      22
+                    ],
+                    "starting_column": 1,
+                    "ending_column": 25
+                  },
+                  "type_specific_fields": {
+                    "directive": [
+                      "solidity",
+                      "^",
+                      "0.8",
+                      ".13"
+                    ]
+                  }
+                }
+              ],
+              "description": "Version constraint ^0.8.13 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- VerbatimInvalidDeduplication\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- StorageWriteRemovalBeforeConditionalTermination\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- InlineAssemblyMemorySideEffects\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation.\nIt is used by:\n\t- ^0.8.13 (contracts/Bank.sol#22)\n",
+              "markdown": "Version constraint ^0.8.13 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- VerbatimInvalidDeduplication\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- StorageWriteRemovalBeforeConditionalTermination\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- InlineAssemblyMemorySideEffects\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation.\nIt is used by:\n\t- [^0.8.13](contracts/Bank.sol#L22)\n",
+              "first_markdown_element": "contracts/Bank.sol#L22",
+              "id": "64087a6a82467f493d2a4b479185ecb2e6e0689c7361f067b4a1d848b074f3dc",
+              "check": "solc-version",
+              "impact": "Informational",
+              "confidence": "High"
+            },
+            {
+              "elements": [
+                {
+                  "type": "function",
+                  "name": "withdraw",
+                  "source_mapping": {
+                    "start": 690,
+                    "length": 255,
+                    "filename_relative": "contracts/Bank.sol",
+                    "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                    "filename_short": "contracts/Bank.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      31,
+                      32,
+                      33,
+                      34,
+                      35,
+                      36,
+                      37,
+                      38,
+                      39
+                    ],
+                    "starting_column": 5,
+                    "ending_column": 6
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "contract",
+                      "name": "DepositFunds",
+                      "source_mapping": {
+                        "start": 525,
+                        "length": 522,
+                        "filename_relative": "contracts/Bank.sol",
+                        "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                        "filename_short": "contracts/Bank.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          24,
+                          25,
+                          26,
+                          27,
+                          28,
+                          29,
+                          30,
+                          31,
+                          32,
+                          33,
+                          34,
+                          35,
+                          36,
+                          37,
+                          38,
+                          39,
+                          40,
+                          41,
+                          42,
+                          43,
+                          44
+                        ],
+                        "starting_column": 1,
+                        "ending_column": 2
+                      }
+                    },
+                    "signature": "withdraw()"
+                  }
+                },
+                {
+                  "type": "node",
+                  "name": "(sent,None) = msg.sender.call{value: bal}()",
+                  "source_mapping": {
+                    "start": 809,
+                    "length": 47,
+                    "filename_relative": "contracts/Bank.sol",
+                    "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                    "filename_short": "contracts/Bank.sol",
+                    "is_dependency": false,
+                    "lines": [
+                      35
+                    ],
+                    "starting_column": 9,
+                    "ending_column": 56
+                  },
+                  "type_specific_fields": {
+                    "parent": {
+                      "type": "function",
+                      "name": "withdraw",
+                      "source_mapping": {
+                        "start": 690,
+                        "length": 255,
+                        "filename_relative": "contracts/Bank.sol",
+                        "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                        "filename_short": "contracts/Bank.sol",
+                        "is_dependency": false,
+                        "lines": [
+                          31,
+                          32,
+                          33,
+                          34,
+                          35,
+                          36,
+                          37,
+                          38,
+                          39
+                        ],
+                        "starting_column": 5,
+                        "ending_column": 6
+                      },
+                      "type_specific_fields": {
+                        "parent": {
+                          "type": "contract",
+                          "name": "DepositFunds",
+                          "source_mapping": {
+                            "start": 525,
+                            "length": 522,
+                            "filename_relative": "contracts/Bank.sol",
+                            "filename_absolute": "C:/Users/adity/Desktop/hyscav/contracts/Bank.sol",
+                            "filename_short": "contracts/Bank.sol",
+                            "is_dependency": false,
+                            "lines": [
+                              24,
+                              25,
+                              26,
+                              27,
+                              28,
+                              29,
+                              30,
+                              31,
+                              32,
+                              33,
+                              34,
+                              35,
+                              36,
+                              37,
+                              38,
+                              39,
+                              40,
+                              41,
+                              42,
+                              43,
+                              44
+                            ],
+                            "starting_column": 1,
+                            "ending_column": 2
+                          }
+                        },
+                        "signature": "withdraw()"
+                      }
+                    }
+                  }
+                }
+              ],
+              "description": "Low level call in DepositFunds.withdraw() (contracts/Bank.sol#31-39):\n\t- (sent,None) = msg.sender.call{value: bal}() (contracts/Bank.sol#35)\n",
+              "markdown": "Low level call in [DepositFunds.withdraw()](contracts/Bank.sol#L31-L39):\n\t- [(sent,None) = msg.sender.call{value: bal}()](contracts/Bank.sol#L35)\n",
+              "first_markdown_element": "contracts/Bank.sol#L31-L39",
+              "id": "8e31f7ba82884ddd8ec0b64336a83cb416bf6790949b12117235bfc9bd2ccd54",
+              "check": "low-level-calls",
+              "impact": "Informational",
+              "confidence": "High"
             }
+          ]
+        }
+      },
+      "details": [
+        {
+          "tool": "slither",
+          "title": "reentrancy-eth",
+          "severity": "High",
+          "contract": "unknown",
+          "function": "withdraw",
+          "line": [
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39
+          ],
+          "description": "Reentrancy in DepositFunds.withdraw() (contracts/Bank.sol#31-39):\n\tExternal calls:\n\t- (sent,None) = msg.sender.call{value: bal}() (contracts/Bank.sol#35)\n\tState variables written after the call(s):\n\t- balances[msg.sender] = 0 (contracts/Bank.sol#38)\n\tDepositFunds.balances (contracts/Bank.sol#25) can be used in cross function reentrancies:\n\t- DepositFunds.balances (contracts/Bank.sol#25)\n\t- DepositFunds.deposit() (contracts/Bank.sol#27-29)\n\t- DepositFunds.withdraw() (contracts/Bank.sol#31-39)\n"
+        },
+        {
+          "tool": "slither",
+          "title": "solc-version",
+          "severity": "Informational",
+          "contract": "unknown",
+          "function": "^0.8.13",
+          "line": [
+            22
+          ],
+          "description": "Version constraint ^0.8.13 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- VerbatimInvalidDeduplication\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- StorageWriteRemovalBeforeConditionalTermination\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- InlineAssemblyMemorySideEffects\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation.\nIt is used by:\n\t- ^0.8.13 (contracts/Bank.sol#22)\n"
+        },
+        {
+          "tool": "slither",
+          "title": "low-level-calls",
+          "severity": "Informational",
+          "contract": "unknown",
+          "function": "withdraw",
+          "line": [
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39
+          ],
+          "description": "Low level call in DepositFunds.withdraw() (contracts/Bank.sol#31-39):\n\t- (sent,None) = msg.sender.call{value: bal}() (contracts/Bank.sol#35)\n"
+        }
+      ]
+    },
+    "Mythril": {
+      "issues_found": 1,
+      "raw_data": {
+        "issues": [
+          {
+            "title": "Reentrancy (proxy)",
+            "severity": "high",
+            "description": "Slither proxy detected Reentrancy via 'reentrancy-eth' detector",
+            "swc_id": "107"
+          }
         ]
+      },
+      "details": [
+        {
+          "tool": "Mythril",
+          "title": "Reentrancy (proxy)",
+          "severity": "high",
+          "description": "Slither proxy detected Reentrancy via 'reentrancy-eth' detector",
+          "location": ""
+        }
+      ]
+    },
+    "Echidna": {
+      "issues_found": 1,
+      "raw_data": {
+        "echidna_balance_never_negative": {
+          "status": "failed"
+        }
+      },
+      "details": [
+        {
+          "tool": "Echidna",
+          "title": "echidna_balance_never_negative",
+          "type": "Property Violation",
+          "severity": "high",
+          "contract": "Bank",
+          "description": "Echidna fuzz test 'echidna_balance_never_negative' failed.",
+          "error_location": "",
+          "coverage": "",
+          "calls": 0,
+          "total_calls": 0,
+          "seed": 0,
+          "calldata": "",
+          "shrinking_attempts": 0,
+          "execution_time": ""
+        }
+      ]
     }
+  }
 }

@@ -1,11 +1,7 @@
-"""
-HySCAV - Hybrid Smart Contract Vulnerability Analyzer
-Hybrid pipeline: Slither → ML Risk Model → Mythril → Echidna → Report
-"""
-
 import logging
 import sys
 import os
+import subprocess
 from typing import List, Dict, Any, Optional
 
 from analyzers.slither_runner import run_slither, simplify_slither_issues
@@ -20,8 +16,39 @@ from ml.risk_model import predict_risk
 from reports.report_generator import generate_report
 
 
-logging.basicConfig(level=logging.INFO, format="%(message)s")
+logging.basicConfig(level=logging.INFO, format="%(message)s", force=True, encoding='utf-8', errors='replace')
 logger = logging.getLogger("HySCAV")
+
+
+def check_tools() -> Dict[str, bool]:
+    """Check if required tools are installed."""
+    tools = {
+        "slither": False,
+        "docker": False,
+    }
+    
+    try:
+        result = subprocess.run(
+            ["slither", "--version"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False
+        )
+        tools["slither"] = result.returncode == 0
+    except:
+        pass
+    try:
+        result = subprocess.run(
+            ["docker", "--version"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False
+        )
+        tools["docker"] = result.returncode == 0
+    except:
+        pass
+    
+    return tools
 
 
 def main(contract_path: str) -> bool:
@@ -43,6 +70,7 @@ def main(contract_path: str) -> bool:
         print(f"[PIPELINE] Contract: {contract_path}")
 
         all_issues: List[Dict[str, Any]] = []
+        tool_outputs: Dict[str, Any] = {}
 
         # -------------------------------
         # 1. Slither Static Analysis
@@ -57,6 +85,11 @@ def main(contract_path: str) -> bool:
 
         slither_issues = simplify_slither_issues(slither_data)
         all_issues.extend(slither_issues)
+        tool_outputs["Slither"] = {
+            "issues_found": len(slither_issues),
+            "raw_data": slither_data,
+            "details": slither_issues
+        }
 
         print(f"[SLITHER] Issues found: {len(slither_issues)}")
 
@@ -93,9 +126,18 @@ def main(contract_path: str) -> bool:
             if mythril_data:
                 mythril_issues = simplify_mythril_issues(mythril_data)
                 all_issues.extend(mythril_issues)
-
+                tool_outputs["Mythril"] = {
+                    "issues_found": len(mythril_issues),
+                    "raw_data": mythril_data,
+                    "details": mythril_issues
+                }
                 print(f"[MYTHRIL] Issues found: {len(mythril_issues)}")
             else:
+                tool_outputs["Mythril"] = {
+                    "issues_found": 0,
+                    "raw_data": {},
+                    "details": []
+                }
                 print("[MYTHRIL] No issues detected")
 
         # -------------------------------
@@ -108,11 +150,21 @@ def main(contract_path: str) -> bool:
             echidna_data = run_echidna(contract_path)
 
             if echidna_data:
-                echidna_issues = simplify_echidna_issues(echidna_data)
+                contract_name = os.path.splitext(os.path.basename(contract_path))[0]
+                echidna_issues = simplify_echidna_issues(echidna_data, contract_name)
                 all_issues.extend(echidna_issues)
-
+                tool_outputs["Echidna"] = {
+                    "issues_found": len(echidna_issues),
+                    "raw_data": echidna_data,
+                    "details": echidna_issues
+                }
                 print(f"[ECHIDNA] Issues found: {len(echidna_issues)}")
             else:
+                tool_outputs["Echidna"] = {
+                    "issues_found": 0,
+                    "raw_data": {},
+                    "details": []
+                }
                 print("[ECHIDNA] No issues detected")
 
         # -------------------------------
@@ -131,10 +183,11 @@ def main(contract_path: str) -> bool:
             risk_level,
             risk_score,
             next_tools,
-            final_issues
+            final_issues,
+            tool_outputs
         )
 
-        print(f"[REPORT] Report generated: {report_path}")
+        pass  # report generation already logged inside generate_report()
 
         print("[PIPELINE] Hybrid analysis completed\n")
 
@@ -159,6 +212,17 @@ if __name__ == "__main__":
     contract = sys.argv[2]
 
     if command == "analyze":
+        # Check tools first
+        tools = check_tools()
+        print("Tool Status:")
+        print(f"  Slither: {'OK' if tools['slither'] else 'NOT FOUND'}")
+        print(f"  Docker: {'OK' if tools['docker'] else 'NOT FOUND'}")
+        print("")
+        
+        if not tools["slither"]:
+            print("[ERROR] Slither not installed. Run: pip install slither-analyzer")
+            sys.exit(1)
+        
         success = main(contract)
         sys.exit(0 if success else 1)
 

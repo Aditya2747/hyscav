@@ -30,8 +30,8 @@ class AnalysisConfig:
     def __post_init__(self):
         if self.risk_thresholds is None:
             self.risk_thresholds = {
-                "HIGH": 6.0,
-                "MEDIUM": 3.0,
+                "HIGH": 15.0,
+                "MEDIUM": 5.0,
                 "LOW": 0.0
             }
 

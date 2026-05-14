@@ -1,0 +1,144 @@
+ID,Category,SWC,Severity,Description
+1,Access Control,SWC-100,HIGH,Access control vulnerabilities
+2,Access Control,SWC-100,HIGH,Access control vulnerabilities
+3,Access Control,SWC-100,HIGH,Access control vulnerabilities
+4,Access Control,SWC-100,HIGH,Access control vulnerabilities
+5,Access Control,SWC-100,HIGH,Access control vulnerabilities
+6,Access Control,SWC-100,HIGH,Access control vulnerabilities
+7,Access Control,SWC-100,HIGH,Access control vulnerabilities
+8,Access Control,SWC-100,HIGH,Access control vulnerabilities
+9,Access Control,SWC-100,HIGH,Access control vulnerabilities
+10,Access Control,SWC-100,HIGH,Access control vulnerabilities
+11,Access Control,SWC-100,HIGH,Access control vulnerabilities
+12,Access Control,SWC-100,HIGH,Access control vulnerabilities
+13,Access Control,SWC-100,HIGH,Access control vulnerabilities
+14,Access Control,SWC-100,HIGH,Access control vulnerabilities
+15,Access Control,SWC-100,HIGH,Access control vulnerabilities
+16,Access Control,SWC-100,HIGH,Access control vulnerabilities
+17,Access Control,SWC-100,HIGH,Access control vulnerabilities
+18,Access Control,SWC-100,HIGH,Access control vulnerabilities
+19,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+20,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+21,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+22,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+23,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+24,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+25,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+26,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+27,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+28,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+29,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+30,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+31,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+32,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+33,Arithmetic,SWC-101,HIGH,Integer overflow/underflow
+34,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+35,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+36,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+37,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+38,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+39,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+40,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+41,Bad  Randomness,SWC-120,MEDIUM,Weak randomness
+42,Denial  Of  Service,SWC-110,MEDIUM,DOS vulnerabilities
+43,Denial  Of  Service,SWC-110,MEDIUM,DOS vulnerabilities
+44,Denial  Of  Service,SWC-110,MEDIUM,DOS vulnerabilities
+45,Denial  Of  Service,SWC-110,MEDIUM,DOS vulnerabilities
+46,Denial  Of  Service,SWC-110,MEDIUM,DOS vulnerabilities
+47,Denial  Of  Service,SWC-110,MEDIUM,DOS vulnerabilities
+48,Front  Running,SWC-132,HIGH,Transaction ordering
+49,Front  Running,SWC-132,HIGH,Transaction ordering
+50,Front  Running,SWC-132,HIGH,Transaction ordering
+51,Front  Running,SWC-132,HIGH,Transaction ordering
+52,Other,Various,LOW,Miscellaneous
+53,Other,Various,LOW,Miscellaneous
+54,Other,Various,LOW,Miscellaneous
+55,Reentrancy,SWC-107,HIGH,Reentrancy attack
+56,Reentrancy,SWC-107,HIGH,Reentrancy attack
+57,Reentrancy,SWC-107,HIGH,Reentrancy attack
+58,Reentrancy,SWC-107,HIGH,Reentrancy attack
+59,Reentrancy,SWC-107,HIGH,Reentrancy attack
+60,Reentrancy,SWC-107,HIGH,Reentrancy attack
+61,Reentrancy,SWC-107,HIGH,Reentrancy attack
+62,Reentrancy,SWC-107,HIGH,Reentrancy attack
+63,Reentrancy,SWC-107,HIGH,Reentrancy attack
+64,Reentrancy,SWC-107,HIGH,Reentrancy attack
+65,Reentrancy,SWC-107,HIGH,Reentrancy attack
+66,Reentrancy,SWC-107,HIGH,Reentrancy attack
+67,Reentrancy,SWC-107,HIGH,Reentrancy attack
+68,Reentrancy,SWC-107,HIGH,Reentrancy attack
+69,Reentrancy,SWC-107,HIGH,Reentrancy attack
+70,Reentrancy,SWC-107,HIGH,Reentrancy attack
+71,Reentrancy,SWC-107,HIGH,Reentrancy attack
+72,Reentrancy,SWC-107,HIGH,Reentrancy attack
+73,Reentrancy,SWC-107,HIGH,Reentrancy attack
+74,Reentrancy,SWC-107,HIGH,Reentrancy attack
+75,Reentrancy,SWC-107,HIGH,Reentrancy attack
+76,Reentrancy,SWC-107,HIGH,Reentrancy attack
+77,Reentrancy,SWC-107,HIGH,Reentrancy attack
+78,Reentrancy,SWC-107,HIGH,Reentrancy attack
+79,Reentrancy,SWC-107,HIGH,Reentrancy attack
+80,Reentrancy,SWC-107,HIGH,Reentrancy attack
+81,Reentrancy,SWC-107,HIGH,Reentrancy attack
+82,Reentrancy,SWC-107,HIGH,Reentrancy attack
+83,Reentrancy,SWC-107,HIGH,Reentrancy attack
+84,Reentrancy,SWC-107,HIGH,Reentrancy attack
+85,Reentrancy,SWC-107,HIGH,Reentrancy attack
+86,Short  Addresses,SWC-133,MEDIUM,Short address attack
+87,Time  Manipulation,SWC-116,MEDIUM,Timestamp dependency
+88,Time  Manipulation,SWC-116,MEDIUM,Timestamp dependency
+89,Time  Manipulation,SWC-116,MEDIUM,Timestamp dependency
+90,Time  Manipulation,SWC-116,MEDIUM,Timestamp dependency
+91,Time  Manipulation,SWC-116,MEDIUM,Timestamp dependency
+92,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+93,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+94,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+95,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+96,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+97,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+98,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+99,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+100,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+101,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+102,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+103,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+104,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+105,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+106,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+107,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+108,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+109,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+110,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+111,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+112,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+113,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+114,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+115,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+116,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+117,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+118,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+119,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+120,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+121,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+122,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+123,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+124,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+125,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+126,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+127,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+128,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+129,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+130,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+131,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+132,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+133,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+134,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+135,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+136,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+137,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+138,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+139,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+140,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+141,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+142,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls
+143,Unchecked  Calls,SWC-104,HIGH,Unchecked low-level calls

@@ -12,7 +12,7 @@ from typing import Dict, List, Any, Optional
 
 from analyzers.slither_runner import run_slither, simplify_slither_issues
 from analyzers.mythril_runner import run_mythril, simplify_mythril_issues
-from analyzers.echidna_runner import run_echidna, simplify_echidna_issues
+from analyzers.echidna_runner_docker import run_echidna, simplify_echidna_issues
 from controller.feature_extractor import extract_slither_features
 from controller.decision_engine import decide_next_stage
 from controller.merger import merge_issues
@@ -195,7 +195,7 @@ class PipelineOrchestrator:
         }
     
     def get_risk_assessment(self, contract_path: str) -> Dict[str, Any]:
- """
+        """
         Get only the risk assessment without running deep analysis.
         
         Args:

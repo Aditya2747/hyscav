@@ -2,8 +2,11 @@
 # Echidna Configuration
 # ----------------------------
 
-# Use Solidity assertions / echidna_* properties
-testMode: assertion
+# testMode is auto-detected by the runner:
+#   - "assertion" if contract contains test_* functions
+#   - "property"  if contract contains echidna_* functions
+# If you want to force a mode, uncomment the line below:
+# testMode: assertion
 
 # Enable coverage reporting
 coverage: true
@@ -36,3 +39,8 @@ corpusDir: "echidna-corpus"
 
 # Reduce noisy output
 quiet: false
+
+# Crytic-compile configuration for Solidity compilation
+cryticCompile:
+  solc: solc
+

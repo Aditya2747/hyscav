@@ -1,0 +1,144 @@
+#,Category,Contract #,Risk Level,Primary Vulnerability,Analysis Status,Source
+1,Access Control,1,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+2,Access Control,2,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+3,Access Control,3,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+4,Access Control,4,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+5,Access Control,5,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+6,Access Control,6,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+7,Access Control,7,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+8,Access Control,8,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+9,Access Control,9,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+10,Access Control,10,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+11,Access Control,11,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+12,Access Control,12,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+13,Access Control,13,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+14,Access Control,14,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+15,Access Control,15,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+16,Access Control,16,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+17,Access Control,17,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+18,Access Control,18,MEDIUM,Access Control,Heuristic (Category-based),SmartBugs
+19,Arithmetic,1,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+20,Arithmetic,2,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+21,Arithmetic,3,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+22,Arithmetic,4,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+23,Arithmetic,5,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+24,Arithmetic,6,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+25,Arithmetic,7,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+26,Arithmetic,8,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+27,Arithmetic,9,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+28,Arithmetic,10,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+29,Arithmetic,11,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+30,Arithmetic,12,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+31,Arithmetic,13,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+32,Arithmetic,14,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+33,Arithmetic,15,HIGH,Integer Overflow,Heuristic (Category-based),SmartBugs
+34,Bad Randomness,1,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+35,Bad Randomness,2,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+36,Bad Randomness,3,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+37,Bad Randomness,4,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+38,Bad Randomness,5,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+39,Bad Randomness,6,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+40,Bad Randomness,7,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+41,Bad Randomness,8,MEDIUM,Weak Randomness,Heuristic (Category-based),SmartBugs
+42,Denial Of Service,1,MEDIUM,DOS,Heuristic (Category-based),SmartBugs
+43,Denial Of Service,2,MEDIUM,DOS,Heuristic (Category-based),SmartBugs
+44,Denial Of Service,3,MEDIUM,DOS,Heuristic (Category-based),SmartBugs
+45,Denial Of Service,4,MEDIUM,DOS,Heuristic (Category-based),SmartBugs
+46,Denial Of Service,5,MEDIUM,DOS,Heuristic (Category-based),SmartBugs
+47,Denial Of Service,6,MEDIUM,DOS,Heuristic (Category-based),SmartBugs
+48,Front Running,1,HIGH,Front Running,Heuristic (Category-based),SmartBugs
+49,Front Running,2,HIGH,Front Running,Heuristic (Category-based),SmartBugs
+50,Front Running,3,HIGH,Front Running,Heuristic (Category-based),SmartBugs
+51,Front Running,4,HIGH,Front Running,Heuristic (Category-based),SmartBugs
+52,Other,1,LOW,Various,Heuristic (Category-based),SmartBugs
+53,Other,2,LOW,Various,Heuristic (Category-based),SmartBugs
+54,Other,3,LOW,Various,Heuristic (Category-based),SmartBugs
+55,Reentrancy,1,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+56,Reentrancy,2,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+57,Reentrancy,3,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+58,Reentrancy,4,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+59,Reentrancy,5,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+60,Reentrancy,6,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+61,Reentrancy,7,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+62,Reentrancy,8,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+63,Reentrancy,9,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+64,Reentrancy,10,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+65,Reentrancy,11,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+66,Reentrancy,12,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+67,Reentrancy,13,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+68,Reentrancy,14,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+69,Reentrancy,15,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+70,Reentrancy,16,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+71,Reentrancy,17,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+72,Reentrancy,18,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+73,Reentrancy,19,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+74,Reentrancy,20,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+75,Reentrancy,21,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+76,Reentrancy,22,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+77,Reentrancy,23,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+78,Reentrancy,24,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+79,Reentrancy,25,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+80,Reentrancy,26,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+81,Reentrancy,27,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+82,Reentrancy,28,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+83,Reentrancy,29,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+84,Reentrancy,30,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+85,Reentrancy,31,HIGH,Reentrancy,Heuristic (Category-based),SmartBugs
+86,Short Addresses,1,MEDIUM,Short Address,Heuristic (Category-based),SmartBugs
+87,Time Manipulation,1,MEDIUM,Timestamp,Heuristic (Category-based),SmartBugs
+88,Time Manipulation,2,MEDIUM,Timestamp,Heuristic (Category-based),SmartBugs
+89,Time Manipulation,3,MEDIUM,Timestamp,Heuristic (Category-based),SmartBugs
+90,Time Manipulation,4,MEDIUM,Timestamp,Heuristic (Category-based),SmartBugs
+91,Time Manipulation,5,MEDIUM,Timestamp,Heuristic (Category-based),SmartBugs
+92,Unchecked Low Level Calls,1,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+93,Unchecked Low Level Calls,2,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+94,Unchecked Low Level Calls,3,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+95,Unchecked Low Level Calls,4,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+96,Unchecked Low Level Calls,5,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+97,Unchecked Low Level Calls,6,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+98,Unchecked Low Level Calls,7,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+99,Unchecked Low Level Calls,8,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+100,Unchecked Low Level Calls,9,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+101,Unchecked Low Level Calls,10,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+102,Unchecked Low Level Calls,11,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+103,Unchecked Low Level Calls,12,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+104,Unchecked Low Level Calls,13,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+105,Unchecked Low Level Calls,14,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+106,Unchecked Low Level Calls,15,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+107,Unchecked Low Level Calls,16,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+108,Unchecked Low Level Calls,17,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+109,Unchecked Low Level Calls,18,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+110,Unchecked Low Level Calls,19,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+111,Unchecked Low Level Calls,20,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+112,Unchecked Low Level Calls,21,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+113,Unchecked Low Level Calls,22,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+114,Unchecked Low Level Calls,23,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+115,Unchecked Low Level Calls,24,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+116,Unchecked Low Level Calls,25,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+117,Unchecked Low Level Calls,26,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+118,Unchecked Low Level Calls,27,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+119,Unchecked Low Level Calls,28,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+120,Unchecked Low Level Calls,29,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+121,Unchecked Low Level Calls,30,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+122,Unchecked Low Level Calls,31,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+123,Unchecked Low Level Calls,32,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+124,Unchecked Low Level Calls,33,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+125,Unchecked Low Level Calls,34,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+126,Unchecked Low Level Calls,35,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+127,Unchecked Low Level Calls,36,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+128,Unchecked Low Level Calls,37,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+129,Unchecked Low Level Calls,38,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+130,Unchecked Low Level Calls,39,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+131,Unchecked Low Level Calls,40,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+132,Unchecked Low Level Calls,41,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+133,Unchecked Low Level Calls,42,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+134,Unchecked Low Level Calls,43,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+135,Unchecked Low Level Calls,44,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+136,Unchecked Low Level Calls,45,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+137,Unchecked Low Level Calls,46,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+138,Unchecked Low Level Calls,47,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+139,Unchecked Low Level Calls,48,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+140,Unchecked Low Level Calls,49,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+141,Unchecked Low Level Calls,50,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+142,Unchecked Low Level Calls,51,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
+143,Unchecked Low Level Calls,52,HIGH,Unchecked Call,Heuristic (Category-based),SmartBugs
